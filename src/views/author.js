@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { NavLink } from 'react-router-dom';
+
 import { connect } from "react-redux";
 
 import { fetchData } from '../actions/index';
@@ -48,9 +50,7 @@ class Author extends Component {
 		
 		if( author && author.name ){
 			
-			
-			
-			authorhtml = author.name
+			authorhtml = <NavLink to={`/author/${author.slug}`}>{author.name}</NavLink>
 		}
 		
 		return (

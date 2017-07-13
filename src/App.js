@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
 
-import Single from "./components/user";
+import Single from "./components/single";
 import Home from "./components/home";
 import Page from "./components/page";
 
