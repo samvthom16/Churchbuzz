@@ -63,7 +63,7 @@ class Posts extends React.Component{
 		}
 		
 		return (
-			<div className="row cards">{posts}</div>
+			<div className="cards">{posts}</div>
 		);
 		
 	}

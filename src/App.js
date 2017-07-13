@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './App.css';
 
-import AppHeader from './header';
+
 
 
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
@@ -44,10 +44,13 @@ class App extends Component {
 									
 							</div>
 							
-							<Route exact path="/" component={Home} />
-							<Route exact path="/:slug" component={Single} />
-							<Route exact path="/page/:slug" component={Page} />
-							
+							<div className='row'>
+								<div className="col-sm-12">
+									<Route exact path="/" component={Home} />
+									<Route exact path="/:slug" component={Single} />
+									<Route exact path="/page/:slug" component={Page} />
+								</div>
+							</div>
 						</div>			
 					</Router>
 				</div>
