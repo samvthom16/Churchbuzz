@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 
 
-import { mapStateToProps, mapDispatchToProps } from '../const'
+import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
 
 
@@ -27,7 +27,7 @@ export class SinglePage extends React.Component{
 	
 	url(){
 		
-		let url = "http://churchbuzz.in/wp-json/wp/v2/pages";
+		let url = baseUrl + "/wp-json/wp/v2/pages";
 		
 		let slug = this.slug();
 		
