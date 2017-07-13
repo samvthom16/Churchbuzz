@@ -54,9 +54,10 @@ class Media extends Component {
 		
 		
 		return (
-		
+			
 			<div className="img-parent">{html}</div>
-		
+			
+			
 		);
 	}
 }

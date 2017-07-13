@@ -2,7 +2,7 @@ import React from "react";
 
 import PostView from '../views/post';
 
-
+import EmptyPost from '../views/emptypost';
 
 import { connect } from "react-redux";
 
@@ -51,16 +51,19 @@ class Posts extends React.Component{
 		
 		
 		
-		if( ! this.props.state.fetched ){
+		if( ! this.props.state.posts_arr.length ){
 			
-			posts = <div className="col-sm-6">
-				<div className="card"></div>
+			posts = <div>
+			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
 			</div>
 			
 		}
 		
 		return (
-			<div className="cards">{posts}</div>
+			<div className="row cards">{posts}</div>
 		);
 		
 	}

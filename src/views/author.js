@@ -47,11 +47,14 @@ class Author extends Component {
 		let authorhtml = '';
 		
 		if( author && author.name ){
-			authorhtml = author.name;
+			
+			
+			
+			authorhtml = author.name
 		}
 		
 		return (
-			<span>{authorhtml}</span>
+			<div>{authorhtml}</div>
 		);
 	}
 }

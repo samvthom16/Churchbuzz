@@ -12,6 +12,7 @@ import store from "./store";
 
 import Single from "./components/user";
 import Home from "./components/home";
+import Page from "./components/page";
 
 
 
@@ -25,26 +26,19 @@ class App extends Component {
 					<AppHeader />
 					<Router>
 						<div className="container-fluid">
+							
 							<div className='row'>
-								<nav className="navbar navbar-default">
-									
-									<div className="navbar-header">
-										
-										<ul className="nav navbar-nav">
-											
-											<li><NavLink to="/">Home</NavLink></li>
-											
-											<li><NavLink to="/user">User</NavLink></li>
-										
-										</ul>
-										
-									</div>
 								
-								</nav>
+									<ul id="primary-navigation" className="list-inline">
+										<li><NavLink to="/">Home</NavLink></li>
+										<li><NavLink to="/page/about-us">About Us</NavLink></li>
+									</ul>
+									
 							</div>
 							<Route exact path="/" component={Home} />
-							<Route path="/user" component={Single} />
-							<Route path="/:slug" component={Single} />
+							<Route exact path="/:slug" component={Single} />
+							<Route exact path="/page/:slug" component={Page} />
+							
 						</div>			
 					</Router>
 				</div>

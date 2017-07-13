@@ -4,8 +4,7 @@ import Moment from 'react-moment';
 
 import EmptyPost from '../views/emptypost';
 
-import AuthorView from '../views/author';
-import MediaView from '../views/media';
+
 
 import { connect } from "react-redux";
 
@@ -31,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 
 };
 
-export class SinglePost extends React.Component{
+export class SinglePage extends React.Component{
 	
 	
 	
@@ -46,7 +45,7 @@ export class SinglePost extends React.Component{
 		if( slug ){
 			
 			
-			let url = 'http://churchbuzz.in/wp-json/wp/v2/posts?slug=' + slug;
+			let url = 'http://churchbuzz.in/wp-json/wp/v2/pages?slug=' + slug;
 			
 			this.props.fetchData( url );
 			
@@ -69,15 +68,8 @@ export class SinglePost extends React.Component{
 			
 			html = <div>
 					
-					<h3>{ post.title.rendered }</h3>
-					
-					<ul className='list-inline'>
-						<li className="text-muted"><AuthorView id={post.author} /></li>
-						<li className="text-muted strong"><Moment fromNow>{post.date}</Moment></li>
-					</ul>
-					<br />
-					<MediaView id={post.featured_media} />
-					
+					<h2>{ post.title.rendered }</h2>
+					<hr />
 					<div className='post-content'><div dangerouslySetInnerHTML={ {__html: post.content.rendered } } /></div>
 					
 				</div>
@@ -98,6 +90,6 @@ export class SinglePost extends React.Component{
 	
 }
 
-const Single = connect( mapStateToProps, mapDispatchToProps )(SinglePost)
+const Page = connect( mapStateToProps, mapDispatchToProps )(SinglePage)
 
-export default Single
+export default Page
