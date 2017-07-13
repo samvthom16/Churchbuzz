@@ -23,10 +23,18 @@ class App extends Component {
 		return (
 			<Provider store={store}>
 				<div className="App">
-					<AppHeader />
+					
 					<Router>
 						<div className="container-fluid">
 							
+							<div className="row header-logo">
+								<div className="col-sm-12">
+									<NavLink to="/">
+										<img src="http://churchbuzz.in/wp-content/uploads/2016/11/CHURCH-BUZZ-LOGO-01.png" className="App-logo" alt="logo" />
+									</NavLink>	
+								</div>
+							</div>
+					
 							<div className='row'>
 								
 									<ul id="primary-navigation" className="list-inline">
@@ -35,6 +43,7 @@ class App extends Component {
 									</ul>
 									
 							</div>
+							
 							<Route exact path="/" component={Home} />
 							<Route exact path="/:slug" component={Single} />
 							<Route exact path="/page/:slug" component={Page} />

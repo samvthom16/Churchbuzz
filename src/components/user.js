@@ -69,7 +69,7 @@ export class SinglePost extends React.Component{
 			
 			html = <div>
 					
-					<h3>{ post.title.rendered }</h3>
+					<h2>{ post.title.rendered }</h2>
 					
 					<ul className='list-inline'>
 						<li className="text-muted"><AuthorView id={post.author} /></li>
