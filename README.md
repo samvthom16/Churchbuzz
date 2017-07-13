@@ -3,11 +3,11 @@ React based experiment on WP API
 
 Also using the redux framework for handling the data flow. 
 
-#Install
+# Install
 Install dependencies:
 npm install
 
-#Development
+# Development
 For development, run the command:
 npm start
 
