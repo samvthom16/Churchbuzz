@@ -1,60 +1,61 @@
 import React, { Component } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from "react-redux";
 
-import { fetchData } from '../actions/index';
 
 
-const mapStateToProps = state => {
-	
-	return {
-		
-		state: state.author
-		
-	}
-}
+import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
-const mapDispatchToProps = (dispatch) => {
-    
-	return {
-		
-		fetchData: (url) => dispatch( fetchData( url, "FETCH_AUTHOR" ) )
-    
-	};
-
-};
 
 class Author extends Component {
 	
-	componentDidMount() {
+	url(){
+		
+		let url = baseUrl + "/wp-json/wp/v2/users/";
 		
 		let id = this.props.id;
 		
 		if( id ){
 			
-			let url = "http://churchbuzz.in/wp-json/wp/v2/users/" + this.props.id;
+			url = url + id;
 			
-			this.props.fetchData(url);
-			
-		}	
+		}
+		
+		return url;
+	}
+	
+	componentDidMount() {
+		
+		let url = this.url();
+		
+		this.props.fetchData( url );
+		
 	}
 	
 	render() {
 		
+		let url = this.url();
 		
-		let author = this.props.state.author[this.props.id];
+		let cache = this.props.state.api.cache;
 		
-		let authorhtml = '';
+		let author = {};
 		
-		if( author && author.name ){
+		let html = '';
+		
+		if( cache[url] ){
 			
-			authorhtml = <NavLink to={`/author/${author.slug}`}>{author.name}</NavLink>
+			author = cache[url];
+			
+			html = <Link to={`/author/${author.slug}`}>{author.name}</Link>
+			
 		}
 		
+		
+		
 		return (
-			<div>{authorhtml}</div>
+			<div>{html}</div>
 		);
 	}
 }

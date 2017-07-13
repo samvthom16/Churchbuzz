@@ -1,6 +1,6 @@
 	
 	export default function reducer(state={
-		author: {},
+		cache: {},
 		fetching: false,
 		fetched: false,
 		error: null,
@@ -8,31 +8,33 @@
 		
 		switch( action.type ){
 			
-			case 'FETCH_AUTHOR':{
+			case 'FETCH':{
 				
 				return {...state, fetching:true}
 				
 			}
 			
-			case "FETCH_AUTHOR_REJECTED":{
+			case "FETCH_REJECTED":{
 				
 				return {...state, fetching:false, error:action.payload}
 			
 			}
 			
-			case "FETCH_AUTHOR_FULFILLED":{
+			case "FETCH_FULFILLED":{
 				
-				// FETCHING THE OLD AUTHOR DATA
-				let author = state.author;
+				let cache = state.cache;
 				
-				author[ action.payload.id ] = action.payload;
+				cache[ action.payload.url ] = action.payload.result;
+				
+				
 				
 				return {
 					...state,
 					fetching: false,
 					fetched: true,
-					author: author,
+					cache: cache,
 				}
+				
 			}
 			
 			default:{

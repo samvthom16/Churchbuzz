@@ -13,11 +13,16 @@ class PostView extends Component {
 		
 		let post = this.props.post;
 		
+		let link_to = {
+			pathname: post.slug,
+			state: post
+		}
+		
 		return (
 			<div className="card">
 				<div className="card-header">
 					
-					<h3><Link to={post.slug}>{post.title.rendered}</Link></h3>
+					<h3><Link to={link_to}>{post.title.rendered}</Link></h3>
 					
 					<ul className='list-inline'>
 						<li className="text-muted"><AuthorView id={post.author} /></li>

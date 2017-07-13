@@ -2,55 +2,59 @@ import React, { Component } from 'react'
 
 import { connect } from "react-redux";
 
-import { fetchData } from '../actions/index';
 
 
-const mapStateToProps = state => {
-	
-	return {
-		
-		state: state.media
-		
-	}
-}
+import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
-const mapDispatchToProps = (dispatch) => {
-    
-	return {
-		
-		fetchData: (url) => dispatch( fetchData( url, "FETCH_MEDIA" ) )
-    
-	};
 
-};
 
 
 class Media extends Component {
 	
-	
-	componentDidMount() {
+	url(){
+		
+		let url = baseUrl + "/wp-json/wp/v2/media/";
 		
 		let id = this.props.id;
 		
 		if( id ){
 		
-			let url = "http://churchbuzz.in/wp-json/wp/v2/media/" + this.props.id;
+			url = url + id;
+		
+		}
+		
+		return url;
+		
+	}
+	
+	componentDidMount() {
+		
+		let url = this.url();
+		
+		this.props.fetchData(url);
 			
-			this.props.fetchData(url);
-			
-		}		
+				
 	}
 	
 	render() {
 		
+		let url = this.url();
 		
-		let media = this.props.state.media[this.props.id];
+		let cache = this.props.state.api.cache;
+		
+		let media = {};
 		
 		let html = '';
 		
-		if( media && media.source_url ){
+		if( cache[url] ){
+			
+			media = cache[url];
+			
 			html = <img alt={media.alt_text} src={media.source_url} />
+			
 		}
+		
+		
 		
 		
 		return (

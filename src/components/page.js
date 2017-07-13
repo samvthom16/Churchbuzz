@@ -8,81 +8,79 @@ import EmptyPost from '../views/emptypost';
 
 import { connect } from "react-redux";
 
-import { fetchData } from '../actions/index';
 
 
-const mapStateToProps = state => {
-	
-	return {
-		
-		state: state.posts
-		
-	}
-}
+import { mapStateToProps, mapDispatchToProps } from '../const'
 
-const mapDispatchToProps = (dispatch) => {
-    
-	return {
-		
-		fetchData: (url) => dispatch( fetchData( url, "FETCH_POST" ) )
-    
-	};
 
-};
+
 
 export class SinglePage extends React.Component{
 	
 	
 	
 	slug(){
+		
 		return this.props.match.params.slug;
+		
 	}
 	
-	componentDidMount() {
+	url(){
+		
+		let url = "http://churchbuzz.in/wp-json/wp/v2/pages";
 		
 		let slug = this.slug();
 		
 		if( slug ){
 			
+			url = url + "?slug=" + slug;
 			
-			let url = 'http://churchbuzz.in/wp-json/wp/v2/pages?slug=' + slug;
-			
-			this.props.fetchData( url );
-			
-
 		}
 		
+		return url;
+	}
+	
+	componentDidMount() {
 		
+		let url = this.url();
+			
+		this.props.fetchData( url );
+			
 	}
 	
 	render(){
 		
-		let slug = this.slug();
+		let url = this.url();
 		
-		let post = this.props.state.posts[ slug ];
+		let cache = this.props.state.api.cache;
+		
+		let page = {};
 		
 		let html = <EmptyPost />
 		
-		if( post && post.id ){
+		if( cache[url] ){
 			
+			page = cache[url];
 			
-			html = <div>
+			if( page.length ){
+				
+				page = page[0]
+				
+				html = <div>
 					
-					<h2>{ post.title.rendered }</h2>
-					<hr />
-					<div className='post-content'><div dangerouslySetInnerHTML={ {__html: post.content.rendered } } /></div>
-					
-				</div>
-			
+						<h2>{ page.title.rendered }</h2>
+						<hr />
+						<div className='post-content'><div dangerouslySetInnerHTML={ {__html: page.content.rendered } } /></div>
+						
+					</div>
+				
+			}
 		}
+		
 		
 		return (
 		
-			<div id="page">
-				
-				{html}
-				
-			</div>
+			<div id="page">{html}</div>
 		
 		);
 		

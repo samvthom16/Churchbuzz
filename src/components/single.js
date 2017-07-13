@@ -9,31 +9,33 @@ import MediaView from '../views/media';
 
 import { connect } from "react-redux";
 
-import { fetchData } from '../actions/index';
 
 
-const mapStateToProps = state => {
-	
-	return {
-		
-		state: state.posts
-		
-	}
-}
+import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
-const mapDispatchToProps = (dispatch) => {
-    
-	return {
-		
-		fetchData: (url) => dispatch( fetchData( url, "FETCH_POST" ) )
-    
-	};
 
-};
 
 export class SinglePost extends React.Component{
 	
+	getDataFromState(){
+		return this.props.location.state;
+	}
 	
+	url(){
+		
+		let slug = this.slug();
+		
+		let url = baseUrl + "/wp-json/wp/v2/posts";
+		
+		if( slug ){
+			
+			url = url + "?slug=" + slug;
+			
+		}
+		
+		return url;
+		
+	}
 	
 	slug(){
 		return this.props.match.params.slug;
@@ -41,56 +43,80 @@ export class SinglePost extends React.Component{
 	
 	componentDidMount() {
 		
-		let slug = this.slug();
+		if( ! this.getDataFromState() ){
+			
+			let url = this.url();
 		
-		if( slug ){
-			
-			
-			let url = 'http://churchbuzz.in/wp-json/wp/v2/posts?slug=' + slug;
-			
 			this.props.fetchData( url );
 			
-
+			
 		}
 		
+		
+			
 		
 	}
 	
 	render(){
 		
-		let slug = this.slug();
 		
-		let post = this.props.state.posts[ slug ];
+		
+		
+		let post = {};
 		
 		let html = <EmptyPost />
 		
-		if( post && post.id ){
+		
+		
+		if( this.getDataFromState() ){
 			
-			
-			html = <div>
-					
-					<h2>{ post.title.rendered }</h2>
-					
-					<ul className='list-inline'>
-						<li className="text-muted"><AuthorView id={post.author} /></li>
-						<li className="text-muted strong"><Moment fromNow>{post.date}</Moment></li>
-					</ul>
-					<br />
-					<MediaView id={post.featured_media} />
-					
-					<div className='post-content'><div dangerouslySetInnerHTML={ {__html: post.content.rendered } } /></div>
-					
-				</div>
+			// PASSED FROM THE PREVIOUS STATE
+			post = this.getDataFromState();
 			
 		}
+		else{
+			
+			let url = this.url();
+		
+			let cache = this.props.state.api.cache;
+			
+			if( cache[url] ){
+			
+				post = cache[url];
+			
+				if( post.length ){
+				
+					post = post[0]
+			
+				}
+			}
+		}
+		
+		
+		
+		if( post ){
+				
+			html = <div>
+					
+						<h2>{ post.title.rendered }</h2>
+						
+						<ul className='list-inline'>
+							<li className="text-muted"><AuthorView id={post.author} /></li>
+							<li className="text-muted strong"><Moment fromNow>{post.date}</Moment></li>
+						</ul>
+						<br />
+						<MediaView id={post.featured_media} />
+						
+						<div className='post-content'><div dangerouslySetInnerHTML={ {__html: post.content.rendered } } /></div>
+						
+					</div>
+				
+		}
+			
 		
 		return (
 		
-			<div id="page">
-				
-				{html}
-				
-			</div>
+			<div id="page">{html}</div>
 		
 		);
 		

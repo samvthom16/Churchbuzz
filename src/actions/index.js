@@ -1,5 +1,5 @@
 
-export function fetchData( url, type ){
+export function fetchData( url ){
 	
 	return function( dispatch ){
 		
@@ -12,7 +12,12 @@ export function fetchData( url, type ){
 				
 				res => {
 					
-					dispatch({type: type + "_FULFILLED", payload: res });
+					let payload = {
+						url: url,
+						result: res
+					}
+					
+					dispatch({type: "FETCH_FULFILLED", payload: payload });
 					
 				}
 				
@@ -21,7 +26,7 @@ export function fetchData( url, type ){
 		})
 		.catch(err => {
 			
-			dispatch({ type: type + "_REJECTED", payload: err });	
+			dispatch({ type: "FETCH_REJECTED", payload: err });	
 			
 		})
 		

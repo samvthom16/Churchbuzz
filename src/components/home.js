@@ -6,64 +6,59 @@ import EmptyPost from '../views/emptypost';
 
 import { connect } from "react-redux";
 
-import { fetchData } from '../actions/index';
-
-
-const mapStateToProps = state => {
-	
-	return {
-		
-		state: state.posts
-		
-	}
-}
-
-const mapDispatchToProps = (dispatch) => {
-    
-	return {
-		
-		fetchData: (url) => dispatch( fetchData( url, "FETCH_POSTS" ) )
-    
-	};
-
-};
-
+import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
 
 
 class Posts extends React.Component{
 	
-	
+	url(){
+		return baseUrl + '/wp-json/wp/v2/posts';
+	}
 	
 	componentDidMount() {
 		
-		this.props.fetchData('http://churchbuzz.in/wp-json/wp/v2/posts');
+		document.title = "Church Buzz";
+		
+		this.props.fetchData( this.url() );
 			
 	}
 	
 	render(){
 		
-		let posts = this.props.state.posts_arr.map((post, index) => {
-			return <div key={index} className="col-sm-6">
-				<PostView post={post} />
-			</div>	
-		});
+		let url = this.url();
 		
+		let cache = this.props.state.api.cache;
 		
+		let posts = [];
 		
-		if( ! this.props.state.posts_arr.length ){
+		let posts_html = <div></div>
+		
+		if( cache[url] ){
 			
-			posts = <div>
-			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-			<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-			</div>
+			// API HAS BEEN REQUESTED AND DATA EXISTS IN THE CACHE
+			posts = cache[url]
+			
+			posts_html = posts.map((post, index) => {
+				return <div key={index} className="col-sm-6">
+					<PostView post={post} />
+				</div>	
+			});
+			
+		}
+		else{
+			
+			posts_html = <div>
+				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
+				</div>
 			
 		}
 		
 		return (
-			<div className="cards">{posts}</div>
+			<div className="cards">{posts_html}</div>
 		);
 		
 	}
