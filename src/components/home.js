@@ -48,17 +48,18 @@ class Posts extends React.Component{
 			});
 			*/
 			
-			console.log( posts );
+			if( posts.length ){
+				
+				posts_html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
+						<Masonry>
+							{posts.map((post, index) => 
+								<PostView post={post} />
+							)}
+						</Masonry>
+					</ResponsiveMasonry>
+				
+			}		
 			
-			posts_html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-					<Masonry>
-						{posts.map((post, index) => 
-							<PostView post={post} />
-						)}
-					</Masonry>
-				</ResponsiveMasonry>
-			
-			console.log( posts_html );
 		}
 		else{
 			
