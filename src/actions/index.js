@@ -6,6 +6,14 @@ export function fetchData( url ){
 		fetch(url)
 		.then(res => {
 			
+			let total_pages = res.headers.get('X-WP-TotalPages');
+			
+			if( ! total_pages ){
+				
+				total_pages = 0;
+				
+			}
+			
 			let json = res.json()
 			
 			json.then(
@@ -14,7 +22,8 @@ export function fetchData( url ){
 					
 					let payload = {
 						url: url,
-						result: res
+						result: res,
+						total_pages: total_pages
 					}
 					
 					dispatch({type: "FETCH_FULFILLED", payload: payload });
@@ -35,3 +44,5 @@ export function fetchData( url ){
 	
 	
 }
+
+

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import { connect } from "react-redux";
 
@@ -6,10 +6,9 @@ import { connect } from "react-redux";
 
 import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
+import Base from '../Base';
 
-
-
-class Media extends Component {
+class Media extends Base{
 	
 	url(){
 		
@@ -27,40 +26,23 @@ class Media extends Component {
 		
 	}
 	
-	componentDidMount() {
-		
-		let url = this.url();
-		
-		this.props.fetchData(url);
-			
-				
-	}
+	
 	
 	render() {
 		
-		let url = this.url();
-		
-		let cache = this.props.state.api.cache;
-		
-		let media = {};
+		let media = this.getData();
 		
 		let html = '';
 		
-		if( cache[url] ){
-			
-			media = cache[url];
+		if( media.source_url ){
 			
 			html = <img alt={media.alt_text} src={media.source_url} />
 			
 		}
 		
-		
-		
-		
 		return (
 			
 			<div className="img-parent">{html}</div>
-			
 			
 		);
 	}

@@ -3,81 +3,51 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 import PostView from '../views/post';
 
-import EmptyPost from '../views/emptypost';
+import Base from '../Base';
 
 import { connect } from "react-redux";
 
-import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
+import { mapStateToProps, mapDispatchToProps, baseUrl, pagePerItems } from '../const'
 
 
 
-class Posts extends React.Component{
+class Posts extends Base{
 	
 	url(){
-		return baseUrl + '/wp-json/wp/v2/posts';
+		
+		return baseUrl + '/wp-json/wp/v2/posts?per_page=' + pagePerItems;
+	
 	}
 	
 	componentDidMount() {
 		
 		document.title = "Church Buzz";
 		
-		this.props.fetchData( this.url() );
+		super.componentDidMount();
 			
+	}
+	
+	getDefaultData(){
+		
+		// DEFAULT POST DATA
+		return [{ id: 0 },{ id: 0},{ id: 0},{ id: 0},{ id: 0},{ id: 0}];
+	
 	}
 	
 	render(){
 		
-		let url = this.url();
+		let posts = this.getData();
 		
-		let cache = this.props.state.api.cache;
-		
-		let posts = [];
-		
-		let posts_html = <div></div>
-		
-		if( cache[url] ){
-			
-			// API HAS BEEN REQUESTED AND DATA EXISTS IN THE CACHE
-			posts = cache[url]
-			
-			/*
-			posts_html = posts.map((post, index) => {
-				return <div key={index} className="col-sm-6">
-					<PostView post={post} />
-				</div>	
-			});
-			*/
-			
-			if( posts.length ){
-				
-				posts_html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
+		let html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
 						<Masonry>
 							{posts.map((post, index) => 
 								<PostView post={post} />
 							)}
 						</Masonry>
 					</ResponsiveMasonry>
-				
-			}		
-			
-		}
-		else{
-			
-			posts_html = <div>
-				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-				<div className="col-sm-6"><div className="card"><EmptyPost /></div></div>
-				</div>
-			
-		}
 		
 		return (
-			<div className="cards">
-				
-				{posts_html}
-				
-			</div>
+			<div className="cards">{html}</div>
 		);
 		
 	}

@@ -1,6 +1,6 @@
 import React from "react";
 
-
+import Base from '../Base';
 
 import EmptyPost from '../views/emptypost';
 
@@ -15,7 +15,7 @@ import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
 
 
-export class SinglePage extends React.Component{
+export class SinglePage extends Base{
 	
 	
 	
@@ -40,42 +40,40 @@ export class SinglePage extends React.Component{
 		return url;
 	}
 	
-	componentDidMount() {
+	getData(){
 		
-		let url = this.url();
+		let post = super.getData();
 			
-		this.props.fetchData( url );
+		if( Array.isArray( post ) ){
+				
+			post = post[0]
+				
+		}
+			
+		return post;
+			
 			
 	}
 	
 	render(){
 		
-		let url = this.url();
 		
-		let cache = this.props.state.api.cache;
 		
-		let page = {};
+		let page = this.getData();
 		
 		let html = <EmptyPost />
 		
-		if( cache[url] ){
-			
-			page = cache[url];
-			
-			if( page.length ){
+		if( page.title ){
 				
-				page = page[0]
-				
-				html = <div>
+			html = <div>
 					
-						<h2>{ page.title.rendered }</h2>
-						<hr />
-						<div className='post-content'><div dangerouslySetInnerHTML={ {__html: page.content.rendered } } /></div>
-						
-					</div>
+					<h2>{ page.title.rendered }</h2>
+					<hr />
+					<div className='post-content'><div dangerouslySetInnerHTML={ {__html: page.content.rendered } } /></div>
+				</div>
 				
-			}
 		}
+		
 		
 		
 		return (

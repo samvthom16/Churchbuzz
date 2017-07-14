@@ -14,10 +14,13 @@ export const mapDispatchToProps = (dispatch) => {
     
 	return {
 		
-		fetchData: (url) => dispatch( fetchData( url ) )
-    
+		fetchData: (url) => dispatch( fetchData( url ) ),
+		
 	};
 
 };
 
 export const baseUrl = "http://churchbuzz.in";
+
+export const pagePerItems = 12;
+

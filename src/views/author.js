@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
 import { connect } from "react-redux";
 
-
+import Base from '../Base';
 
 import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
 
-class Author extends Component {
+class Author extends Base{
 	
 	url(){
 		
@@ -26,27 +26,14 @@ class Author extends Component {
 		return url;
 	}
 	
-	componentDidMount() {
-		
-		let url = this.url();
-		
-		this.props.fetchData( url );
-		
-	}
-	
 	render() {
 		
-		let url = this.url();
 		
-		let cache = this.props.state.api.cache;
-		
-		let author = {};
+		let author = this.getData();
 		
 		let html = '';
 		
-		if( cache[url] ){
-			
-			author = cache[url];
+		if( author.name ){
 			
 			html = <Link to={`/author/${author.slug}`}>{author.name}</Link>
 			

@@ -24,9 +24,7 @@
 				
 				let cache = state.cache;
 				
-				cache[ action.payload.url ] = action.payload.result;
-				
-				
+				cache[ action.payload.url ] = action.payload;
 				
 				return {
 					...state,
@@ -36,6 +34,7 @@
 				}
 				
 			}
+			
 			
 			default:{
 				

@@ -9,16 +9,19 @@ import MediaView from '../views/media';
 
 import { connect } from "react-redux";
 
-
+import Base from '../Base';
 
 import { mapStateToProps, mapDispatchToProps, baseUrl } from '../const'
 
 
 
-export class SinglePost extends React.Component{
+export class SinglePost extends Base{
 	
 	getDataFromState(){
+		
+		// GET DATA FROM PREVIOUS STATE
 		return this.props.location.state;
+	
 	}
 	
 	url(){
@@ -38,63 +41,53 @@ export class SinglePost extends React.Component{
 	}
 	
 	slug(){
+		
 		return this.props.match.params.slug;
+		
 	}
+	
+	getData(){
+		
+		if( this.getDataFromState() ){
+			
+			// PASSED FROM THE PREVIOUS STATE
+			return this.getDataFromState();
+			
+		}
+		else{
+		
+		
+			let post = super.getData();
+			
+			if( Array.isArray( post ) ){
+				
+				post = post[0]
+				
+			}
+			
+			return post;
+			
+		}	
+	}
+	
 	
 	componentDidMount() {
 		
-		if( ! this.getDataFromState() ){
-			
-			let url = this.url();
+		if( !this.getDataFromState() ){
 		
-			this.props.fetchData( url );
-			
-			
+			super.componentDidMount();
+		
 		}
-		
-		
-			
 		
 	}
 	
 	render(){
 		
-		
-		
-		
-		let post = {};
+		let post = this.getData();
 		
 		let html = <EmptyPost />
 		
-		
-		
-		if( this.getDataFromState() ){
-			
-			// PASSED FROM THE PREVIOUS STATE
-			post = this.getDataFromState();
-			
-		}
-		else{
-			
-			let url = this.url();
-		
-			let cache = this.props.state.api.cache;
-			
-			if( cache[url] ){
-			
-				post = cache[url];
-			
-				if( post.length ){
-				
-					post = post[0]
-			
-				}
-			}
-		}
-		
-		
-		
-		if( post ){
+		if( post.title ){
 				
 			html = <div>
 					
@@ -112,7 +105,7 @@ export class SinglePost extends React.Component{
 					</div>
 				
 		}
-			
+		
 		
 		return (
 		
