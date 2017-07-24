@@ -24,13 +24,37 @@ export default class Base extends React.Component{
 			
 	}
 	
+	getCache(){
+		
+		return this.props.state.api.cache;
+		
+	}
+	
+	getTotalPages(){
+		
+		let url = this.url();
+		
+		if( url.length ){	
+		
+			let cache = this.getCache();
+			
+			if( cache[url] ){
+			
+				return cache[url].total_pages;
+				
+			}
+		}
+		
+		return 0;
+	}
+	
 	getData(){
 		
 		let url = this.url();
 		
 		if( url.length ){	
 		
-			let cache = this.props.state.api.cache;
+			let cache = this.getCache();
 		
 			if( cache[url] ){
 			
