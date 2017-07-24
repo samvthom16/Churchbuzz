@@ -41,7 +41,7 @@ class Posts extends Base{
 		let html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
 						<Masonry>
 							{posts.map((post, index) => 
-								<PostView post={post} />
+								<PostView key={index} post={post} />
 							)}
 						</Masonry>
 					</ResponsiveMasonry>

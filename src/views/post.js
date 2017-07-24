@@ -26,7 +26,7 @@ class PostView extends Component {
 		
 			html = <div className="card"><div className="card-header">
 						
-						<h3><Link to={link_to}>{post.title.rendered}</Link></h3>
+						<h3><Link to={link_to}><div dangerouslySetInnerHTML={ {__html: post.title.rendered } } /></Link></h3>
 						
 						<ul className='list-inline'>
 							<li className="text-muted"><AuthorView id={post.author} /></li>

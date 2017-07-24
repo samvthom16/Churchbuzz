@@ -91,7 +91,7 @@ export class SinglePost extends Base{
 				
 			html = <div>
 					
-						<h2>{ post.title.rendered }</h2>
+						<h2><div dangerouslySetInnerHTML={ {__html: post.title.rendered } } /></h2>
 						
 						<ul className='list-inline'>
 							<li className="text-muted"><AuthorView id={post.author} /></li>

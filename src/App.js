@@ -43,12 +43,13 @@ class App extends Component {
 									</ul>
 									
 							</div>
-							
-							<div className='row'>
-								<div className="col-sm-12">
-									<Route exact path="/" component={Home} />
-									<Route exact path="/:slug" component={Single} />
-									<Route exact path="/page/:slug" component={Page} />
+							<div className='container'>
+								<div className='row'>
+									<div className="col-sm-12">
+										<Route exact path="/" component={Home} />
+										<Route exact path="/:slug" component={Single} />
+										<Route exact path="/page/:slug" component={Page} />
+									</div>
 								</div>
 							</div>
 						</div>			
