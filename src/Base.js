@@ -14,7 +14,13 @@ export default class Base extends React.Component{
 	
 	componentDidMount() {
 		
-		this.props.fetchData( this.url() );
+		let url = this.url();
+		
+		if( url ){
+			
+			this.props.fetchData( url );
+			
+		}
 			
 	}
 	
@@ -22,14 +28,16 @@ export default class Base extends React.Component{
 		
 		let url = this.url();
 		
-		let cache = this.props.state.api.cache;
+		if( url.length ){	
 		
-		if( cache[url] ){
+			let cache = this.props.state.api.cache;
+		
+			if( cache[url] ){
 			
+				return cache[url].result;
 			
-			
-			return cache[url].result;
-			
+			}
+		
 		}
 		
 		// DEFAULT POST DATA

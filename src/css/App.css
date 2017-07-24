@@ -1,0 +1,97 @@
+body{
+	background: #f2f2f2;
+}
+
+#primary-navigation{
+	text-transform: uppercase;
+	background: #fff;
+	padding: 20px 10px;
+	border-top:#DDD solid 1px;
+	border-bottom:#DDD solid 1px;
+}
+#primary-navigation a[href]{
+	color: #000;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+	height: auto;
+	width: 100%;
+	max-width: 400px;
+}
+
+.header-logo{
+	background: #FFF;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+#page-container{
+	margin-top: 30px;
+}
+
+#page{
+	max-width:960px;
+	margin: 30px auto;
+	padding: 30px;
+	background: #FFF;
+}
+
+.img-parent img{
+	max-width: 100%;
+}
+
+#page .img-parent{
+	min-height: 350px;
+	background: #f6f7f8;
+}
+
+h3 a[href], h3 a[href]:hover{
+	color:inherit;
+	text-decoration: none;
+	
+}
+
+.post-content{
+	margin-top: 20px;
+	text-align: left;
+}
+
+
+
+
+
+.alignleft{
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+
+.wpulike{
+	display: none;
+}
+
+.author-info{
+	max-width: 500px;
+	margin:30px auto !important;
+	text-align:left;
+}
+
+.author-info{
+	padding-left: 20px;
+}
+
+.author-info img{
+	border-radius: 100px;
+}
+
+.author-info h2{
+	margin-top: 5px;
+}

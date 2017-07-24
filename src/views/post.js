@@ -9,6 +9,8 @@ import EmptyPost from './emptypost';
 import AuthorView from './author';
 import MediaView from './media';
 
+import '../css/cards.css';
+
 class PostView extends Component {
 	
 	render() {
@@ -16,7 +18,7 @@ class PostView extends Component {
 		let post = this.props.post;
 		
 		let link_to = {
-			pathname: post.slug,
+			pathname: '/' + post.slug,
 			state: post
 		}
 		

@@ -1,23 +1,16 @@
 import React from "react"
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
-import PostView from '../views/post';
+import PostsView from '../views/posts';
 
 import Base from '../Base';
 
 import { connect } from "react-redux";
 
-import { mapStateToProps, mapDispatchToProps, baseUrl, pagePerItems } from '../const'
+import { mapStateToProps, mapDispatchToProps } from '../const'
 
 
 
-class Posts extends Base{
-	
-	url(){
-		
-		return baseUrl + '/wp-json/wp/v2/posts?per_page=' + pagePerItems;
-	
-	}
+class HomePosts extends Base{
 	
 	componentDidMount() {
 		
@@ -27,33 +20,16 @@ class Posts extends Base{
 			
 	}
 	
-	getDefaultData(){
-		
-		// DEFAULT POST DATA
-		return [{ id: 0 },{ id: 0},{ id: 0},{ id: 0},{ id: 0},{ id: 0}];
-	
-	}
-	
 	render(){
 		
-		let posts = this.getData();
-		
-		let html =  <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-						<Masonry>
-							{posts.map((post, index) => 
-								<PostView key={index} post={post} />
-							)}
-						</Masonry>
-					</ResponsiveMasonry>
-		
 		return (
-			<div className="cards">{html}</div>
+			<div className="cards"><PostsView /></div>
 		);
 		
 	}
 	
 }
 
-const Home = connect( mapStateToProps, mapDispatchToProps )(Posts)
+const Home = connect( mapStateToProps, mapDispatchToProps )(HomePosts)
 
 export default Home

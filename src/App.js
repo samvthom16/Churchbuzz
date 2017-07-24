@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import './App.css';
-
-
-
+import './css/App.css';
 
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
@@ -13,6 +10,7 @@ import store from "./store";
 import Single from "./components/single";
 import Home from "./components/home";
 import Page from "./components/page";
+import Author from "./components/author";
 
 
 
@@ -43,12 +41,13 @@ class App extends Component {
 									</ul>
 									
 							</div>
-							<div className='container'>
+							<div id="page-container" className='container'>
 								<div className='row'>
 									<div className="col-sm-12">
 										<Route exact path="/" component={Home} />
 										<Route exact path="/:slug" component={Single} />
 										<Route exact path="/page/:slug" component={Page} />
+										<Route exact path="/author/:slug" component={Author} />
 									</div>
 								</div>
 							</div>
